@@ -20,7 +20,7 @@
         h1 { text-align: center; color: #2c3e50; font-size: 2.5rem; margin-bottom: 10px; }
         .subtitle { text-align: center; color: #666; font-size: 1.2rem; margin-bottom: 50px; font-weight: bold; }
         
-        /* 章节标题 */
+        /* 一级章节标题 (如 1. Simulation, 2. Real-World) */
         h2 {
             border-bottom: 2px solid #ddd;
             padding-bottom: 10px;
@@ -29,9 +29,22 @@
             margin-bottom: 30px;
         }
 
+        /* 【新增】二级分类标题 (如 Instructional Tasks) */
+        .sub-section-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 12px;
+            border-left: 5px solid #3498db; /* 左侧蓝色竖条装饰 */
+            background-color: #eef2f5;      /* 浅灰色背景条 */
+            padding: 10px 10px 10px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
         /* =========================================
            2. 仿真实验样式 (PPT风格 - 左右不对称)
-           适用于：尺寸不一致的 GIF
         ========================================= */
         .sim-task-container {
             background: #fff;
@@ -49,7 +62,6 @@
             align-items: start;
         }
 
-        /* 图片自适应：无论你上传多大尺寸，都会自动缩放适应框框 */
         .sim-layout-grid img {
             width: 100%;
             height: auto;
@@ -65,7 +77,6 @@
             font-size: 0.9rem;
         }
 
-        /* 右侧文字列表 */
         .action-list {
             background: #f4f6f8;
             padding: 15px 15px 15px 30px;
@@ -77,7 +88,6 @@
 
         /* =========================================
            3. 真机实验样式 (整齐划一 - 一行4个)
-           适用于：尺寸一致的 MP4
         ========================================= */
         .real-world-grid {
             display: grid;
@@ -107,9 +117,10 @@
             font-weight: 600;
             font-size: 0.9rem;
             color: #555;
+            line-height: 1.4; /* 稍微增加行高，防止文字太挤 */
         }
 
-        /* 手机适配：手机上全部变单列，防止挤扁 */
+        /* 手机适配 */
         @media (max-width: 768px) {
             .real-world-grid, .sim-layout-grid { grid-template-columns: 1fr; }
         }
@@ -146,6 +157,8 @@
     </div>
     
     <h2>2. Real-World Experiments</h2>
+
+    <div class="sub-section-title">2.1 Instructional Tasks (12 Tasks)</div>
 
     <div class="real-world-grid">
         
@@ -209,7 +222,7 @@
             <video controls preload="metadata" playsinline>
                 <source src="./video_09.mp4" type="video/mp4">
             </video>
-            <div class="caption">09: Place the eraser in the basket, move the basket to point A, and then open the drawer and place a block in it</div>
+            <div class="caption">09: Place the eraser in the basket, move the basket to point A...</div>
         </div>
 
         <div class="video-card">
@@ -232,6 +245,10 @@
             </video>
             <div class="caption">12: Place the pink square in the pen holder</div>
         </div>
+
+    </div> <div class="sub-section-title">2.2 Abstract Tasks (8 Tasks)</div>
+
+    <div class="real-world-grid">
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
@@ -258,14 +275,14 @@
             <video controls preload="metadata" playsinline>
                 <source src="./video_16.mp4" type="video/mp4">
             </video>
-            <div class="caption">16: Use all containers to store items, making sure each container contains at least one item</div>
+            <div class="caption">16: Use all containers to store items...</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_17.mp4" type="video/mp4">
             </video>
-            <div class="caption">17: Prepare drawing tools - gather the black pen, white pen, and eraser in the pencil cup</div>
+            <div class="caption">17: Prepare drawing tools...</div>
         </div>
 
         <div class="video-card">
@@ -289,8 +306,5 @@
             <div class="caption">20: Put all blocks and erasers in the drawer</div>
         </div>
 
-    </div>
-
-</body>
+    </div> </body>
 </html>
-
