@@ -10,7 +10,7 @@
         ========================================= */
         body {
             font-family: 'Segoe UI', sans-serif;
-            max-width: 1400px; /* 页面足够宽，容纳一行4个 */
+            max-width: 1400px;
             margin: 0 auto;
             padding: 40px 20px;
             background-color: #f8f9fa;
@@ -20,31 +20,25 @@
         h1 { text-align: center; color: #2c3e50; font-size: 2.5rem; margin-bottom: 10px; }
         .subtitle { text-align: center; color: #666; font-size: 1.2rem; margin-bottom: 50px; font-weight: bold; }
         
-        /* 一级章节标题 (如 1. Simulation, 2. Real-World) */
         h2 {
             border-bottom: 2px solid #ddd;
             padding-bottom: 10px;
             color: #34495e;
-            margin-top: 60px; /* 章节之间拉开距离 */
+            margin-top: 60px;
             margin-bottom: 30px;
         }
 
-        /* 【新增】二级分类标题 (如 Instructional Tasks) */
-        .sub-section-title {
-            font-size: 1.3rem;
+        h3.subsection-title {
             color: #2c3e50;
             margin-top: 40px;
             margin-bottom: 20px;
-            padding-left: 12px;
-            border-left: 5px solid #3498db; /* 左侧蓝色竖条装饰 */
-            background-color: #eef2f5;      /* 浅灰色背景条 */
-            padding: 10px 10px 10px 15px;
-            border-radius: 4px;
-            font-weight: 600;
+            padding-left: 10px;
+            border-left: 5px solid #3498db;
+            font-size: 1.5rem;
         }
 
         /* =========================================
-           2. 仿真实验样式 (PPT风格 - 左右不对称)
+           2. 仿真实验样式 (核心修改部分)
         ========================================= */
         .sim-task-container {
             background: #fff;
@@ -57,11 +51,13 @@
 
         .sim-layout-grid {
             display: grid;
-            grid-template-columns: 3fr 2fr; /* 左边占3份(大)，右边占2份(小) */
+            /* 左侧占 55%，右侧占 45% */
+            grid-template-columns: 1.2fr 1fr; 
             gap: 30px;
             align-items: start;
         }
 
+        /* 左侧大图 */
         .sim-layout-grid img {
             width: 100%;
             height: auto;
@@ -75,23 +71,33 @@
             margin-top: 8px;
             color: #555;
             font-size: 0.9rem;
+            margin-bottom: 5px;
         }
 
-        .action-list {
-            background: #f4f6f8;
-            padding: 15px 15px 15px 30px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            color: #444;
+        /* --- 右侧 Agent 视角的多图网格系统 --- */
+        .agent-view-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
+
+        .agent-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        /* 1张图：占满 */
+        .agent-grid.cols-1 { grid-template-columns: 1fr; }
+        /* 2张图：左右各一半 */
+        .agent-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+        /* 3或4张图：2x2 排列 */
+        .agent-grid.cols-4 { grid-template-columns: 1fr 1fr; }
 
         /* =========================================
-           3. 真机实验样式 (整齐划一 - 一行4个)
+           3. 真机实验样式
         ========================================= */
         .real-world-grid {
             display: grid;
-            /* 强制一行 4 个 */
             grid-template-columns: repeat(4, 1fr); 
             gap: 20px; 
         }
@@ -117,10 +123,9 @@
             font-weight: 600;
             font-size: 0.9rem;
             color: #555;
-            line-height: 1.4; /* 稍微增加行高，防止文字太挤 */
+            line-height: 1.4;
         }
 
-        /* 手机适配 */
         @media (max-width: 768px) {
             .real-world-grid, .sim-layout-grid { grid-template-columns: 1fr; }
         }
@@ -134,178 +139,121 @@
     <h2>1. Simulation Experiments</h2>
     
     <div class="sim-task-container">
-        <h3 style="margin-top:0;">Task: Place salmon in fridge</h3>
-        
+        <h3 style="margin-top:0;">Task 1: Grab the cellphone and put it on the nightstand</h3>
         <div class="sim-layout-grid">
             <div>
-                <img src="./sim_01_overall.GIF" alt="Overall View"> 
                 <div class="view-label">Global Perspective</div>
+                <img src="./sim_task1_global.GIF" alt="Task 1 Global"> 
             </div>
-
             <div>
-                <img src="./sim_01_agent.GIF" alt="Agent View" style="margin-bottom: 15px;">
                 <div class="view-label">Agent Perspective</div>
-                
-                <ul class="action-list">
-                    <li>walk to fridge</li>
-                    <li>open fridge</li>
-                    <li>pick salmon</li>
-                    <li>place salmon</li>
-                </ul>
+                <div class="agent-grid cols-1">
+                    <img src="./sim_task1_agent1.GIF" alt="Agent 1">
+                </div>
             </div>
         </div>
     </div>
-    
+
+    <div class="sim-task-container">
+        <h3 style="margin-top:0;">Task 2: Put the bananas on the kitchen table and turn on the TV</h3>
+        <div class="sim-layout-grid">
+            <div>
+                <div class="view-label">Global Perspective</div>
+                <img src="./sim_task2_global.GIF" alt="Task 2 Global"> 
+            </div>
+            <div>
+                <div class="view-label">Agent Perspectives (2 Views)</div>
+                <div class="agent-grid cols-2">
+                    <img src="./sim_task2_agent1.GIF" alt="Agent 1">
+                    <img src="./sim_task2_agent2.GIF" alt="Agent 2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sim-task-container">
+        <h3 style="margin-top:0;">Task 3: Move the pillow to the sofa and turn off the table lamp</h3>
+        <div class="sim-layout-grid">
+            <div>
+                <div class="view-label">Global Perspective</div>
+                <img src="./sim_task3_global.GIF" alt="Task 3 Global"> 
+            </div>
+            <div>
+                <div class="view-label">Agent Perspectives (2 Views)</div>
+                <div class="agent-grid cols-2">
+                    <img src="./sim_task3_agent1.GIF" alt="Agent 1">
+                    <img src="./sim_task3_agent2.GIF" alt="Agent 2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sim-task-container">
+        <h3 style="margin-top:0;">Task 4: Get ready for a guest’s arrival</h3>
+        <div class="sim-layout-grid">
+            <div>
+                <div class="view-label">Global Perspective</div>
+                <img src="./sim_task4_global.GIF" alt="Task 4 Global"> 
+            </div>
+            <div>
+                <div class="view-label">Agent Perspectives (4 Views)</div>
+                <div class="agent-grid cols-4">
+                    <img src="./sim_task4_agent1.GIF" alt="Agent 1">
+                    <img src="./sim_task4_agent2.GIF" alt="Agent 2">
+                    <img src="./sim_task4_agent3.GIF" alt="Agent 3">
+                    <img src="./sim_task4_agent4.GIF" alt="Agent 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sim-task-container">
+        <h3 style="margin-top:0;">Task 5: Prepare breakfast for the morning</h3>
+        <div class="sim-layout-grid">
+            <div>
+                <div class="view-label">Global Perspective</div>
+                <img src="./sim_task5_global.GIF" alt="Task 5 Global"> 
+            </div>
+            <div>
+                <div class="view-label">Agent Perspectives (3 Views)</div>
+                <div class="agent-grid cols-4">
+                    <img src="./sim_task5_agent1.GIF" alt="Agent 1">
+                    <img src="./sim_task5_agent2.GIF" alt="Agent 2">
+                    <img src="./sim_task5_agent3.GIF" alt="Agent 3">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <h2>2. Real-World Experiments</h2>
 
-    <div class="sub-section-title">2.1 Instructional Tasks (12 Tasks)</div>
-
+    <h3 class="subsection-title">2.1 Instructional Tasks</h3>
     <div class="real-world-grid">
-        
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_01.mp4" type="video/mp4">
-            </video>
-            <div class="caption">01: Place the pink block at point A</div>
-        </div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_01.mp4" type="video/mp4"></video><div class="caption">01: Place the pink block at point A</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_02.mp4" type="video/mp4"></video><div class="caption">02: Place the black pen in the pencil cup</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_03.mp4" type="video/mp4"></video><div class="caption">03: Open the drawer, put in the eraser, and then close the drawer</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_04.mp4" type="video/mp4"></video><div class="caption">04: Place the yellow block in the basket, and then move the basket to point A</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_05.mp4" type="video/mp4"></video><div class="caption">05: Place the pink block on top of the drawer</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_06.mp4" type="video/mp4"></video><div class="caption">06: Place the yellow block on top of the pink block</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_07.mp4" type="video/mp4"></video><div class="caption">07: Place the pink block on top of the yellow block</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_08.mp4" type="video/mp4"></video><div class="caption">08: Place the eraser on top of the pink block</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_09.mp4" type="video/mp4"></video><div class="caption">09: Place the eraser in the basket, move the basket to point A...</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_10.mp4" type="video/mp4"></video><div class="caption">10: Place the pink block in the basket, and then place the yellow block at point A</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_11.mp4" type="video/mp4"></video><div class="caption">11: Place the black pen on top of the drawer</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_12.mp4" type="video/mp4"></video><div class="caption">12: Place the pink square in the pen holder</div></div>
+    </div>
 
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_02.mp4" type="video/mp4">
-            </video>
-            <div class="caption">02: Place the black pen in the pencil cup</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_03.mp4" type="video/mp4">
-            </video>
-            <div class="caption">03: Open the drawer, put in the eraser, and then close the drawer</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_04.mp4" type="video/mp4">
-            </video>
-            <div class="caption">04: Place the yellow block in the basket, and then move the basket to point A</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_05.mp4" type="video/mp4">
-            </video>
-            <div class="caption">05: Place the pink block on top of the drawer</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_06.mp4" type="video/mp4">
-            </video>
-            <div class="caption">06: Place the yellow block on top of the pink block</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_07.mp4" type="video/mp4">
-            </video>
-            <div class="caption">07: Place the pink block on top of the yellow block</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_08.mp4" type="video/mp4">
-            </video>
-            <div class="caption">08: Place the eraser on top of the pink block</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_09.mp4" type="video/mp4">
-            </video>
-            <div class="caption">09: Place the eraser in the basket, move the basket to point A...</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_10.mp4" type="video/mp4">
-            </video>
-            <div class="caption">10: Place the pink block in the basket, and then place the yellow block at point A</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_11.mp4" type="video/mp4">
-            </video>
-            <div class="caption">11: Place the black pen on top of the drawer</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_12.mp4" type="video/mp4">
-            </video>
-            <div class="caption">12: Place the pink square in the pen holder</div>
-        </div>
-
-    </div> <div class="sub-section-title">2.2 Abstract Tasks (8 Tasks)</div>
-
+    <h3 class="subsection-title">2.2 Abstract Tasks</h3>
     <div class="real-world-grid">
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_13.mp4" type="video/mp4"></video><div class="caption">13: Organize and store the stationery</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_14.mp4" type="video/mp4"></video><div class="caption">14: Tidy up the desk</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_15.mp4" type="video/mp4"></video><div class="caption">15: Open the drawer, put in all the blocks</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_16.mp4" type="video/mp4"></video><div class="caption">16: Use all containers to store items...</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_17.mp4" type="video/mp4"></video><div class="caption">17: Prepare drawing tools...</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_18.mp4" type="video/mp4"></video><div class="caption">18: Store colored items together</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_19.mp4" type="video/mp4"></video><div class="caption">19: Store all items safely</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_20.mp4" type="video/mp4"></video><div class="caption">20: Put all blocks and erasers in the drawer</div></div>
+    </div>
 
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_13.mp4" type="video/mp4">
-            </video>
-            <div class="caption">13: Organize and store the stationery</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_14.mp4" type="video/mp4">
-            </video>
-            <div class="caption">14: Tidy up the desk</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_15.mp4" type="video/mp4">
-            </video>
-            <div class="caption">15: Open the drawer, put in all the blocks</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_16.mp4" type="video/mp4">
-            </video>
-            <div class="caption">16: Use all containers to store items...</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_17.mp4" type="video/mp4">
-            </video>
-            <div class="caption">17: Prepare drawing tools...</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_18.mp4" type="video/mp4">
-            </video>
-            <div class="caption">18: Store colored items together</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_19.mp4" type="video/mp4">
-            </video>
-            <div class="caption">19: Store all items safely</div>
-        </div>
-
-        <div class="video-card">
-            <video controls preload="metadata" playsinline>
-                <source src="./video_20.mp4" type="video/mp4">
-            </video>
-            <div class="caption">20: Put all blocks and erasers in the drawer</div>
-        </div>
-
-    </div> </body>
+</body>
 </html>
-
