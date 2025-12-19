@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-World Experiments Showcase</title>
+    <style>
+        /* --- 页面整体风格 --- */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 1000px; /* 页面最大宽度 */
+            margin: 0 auto;    /* 居中 */
+            padding: 40px 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 40px; font-weight: bold;}
+
+        /* --- 视频网格布局 (核心) --- */
+        .video-grid {
+            display: grid;
+            /* 自动适应：电脑上一行2个，手机上一行1个 */
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px; /* 视频之间的间距 */
+        }
+
+        /* 单个视频卡片 */
+        .video-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        /* 视频本身 */
+        video {
+            width: 100%;       /* 撑满卡片 */
+            height: auto;
+            border-radius: 5px;
+            background: #000;  /* 视频加载前的黑色背景 */
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* 说明文字 */
+        .caption {
+            font-weight: 600;
+            color: #555;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Real-World Experiments</h1>
+    <div class="subtitle">Anonymous Authors</div>
+
+    <div class="video-grid">
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_01.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 01: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_02.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 02: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_03.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 03: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_04.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 04: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_05.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 05: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_06.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 06: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_07.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 07: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_08.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 08: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_09.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 09: Task Name</div>
+        </div>
+
+        <div class="video-card">
+            <video controls preload="metadata" playsinline>
+                <source src="./video_10.mp4" type="video/mp4">
+            </video>
+            <div class="caption">Experiment 10: Task Name</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
