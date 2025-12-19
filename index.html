@@ -3,51 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-World Experiments Showcase</title>
+    <title>Project Page</title>
     <style>
         /* --- 页面整体风格 --- */
         body {
             font-family: 'Segoe UI', sans-serif;
-            max-width: 1000px; /* 页面最大宽度 */
+            /* 【修改点1】宽度加宽，为了容纳一行4个视频 */
+            max-width: 1400px; 
             margin: 0 auto;    /* 居中 */
             padding: 40px 20px;
             background-color: #f4f7f6;
             color: #333;
         }
 
-        h1 { text-align: center; color: #2c3e50; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #666; margin-bottom: 40px; font-weight: bold;}
+        /* 【修改点2】标题样式调整 */
+        h1 { 
+            text-align: center; 
+            color: #2c3e50; 
+            margin-bottom: 10px; 
+            font-size: 2.5rem; /* 字体加大 */
+        }
+        
+        .subtitle { 
+            text-align: center; 
+            color: #666; 
+            margin-bottom: 60px; /* 拉大和下面内容的距离 */
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
 
-        /* --- 视频网格布局 (核心) --- */
+        /* 新增：二级标题样式 */
+        h2 {
+            border-bottom: 2px solid #ddd; /* 加个下划线 */
+            padding-bottom: 10px;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        /* --- 视频网格布局 (核心修改) --- */
         .video-grid {
             display: grid;
-            /* 自动适应：电脑上一行2个，手机上一行1个 */
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 30px; /* 视频之间的间距 */
+            /* 【修改点3】强制分为4列 (1fr = 1 fraction，即1份) */
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px; /* 视频之间的间距稍微调小一点，不然太挤 */
+        }
+
+        /* 手机端适配：如果不加这个，手机上也会是4列，会小到看不见 */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr; /* 手机上强制变回1列 */
+            }
         }
 
         /* 单个视频卡片 */
         .video-card {
             background: white;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 10px; /* 内边距稍微减小 */
+            border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             text-align: center;
         }
 
         /* 视频本身 */
         video {
-            width: 100%;       /* 撑满卡片 */
+            width: 100%;       
             height: auto;
             border-radius: 5px;
-            background: #000;  /* 视频加载前的黑色背景 */
+            background: #000;  
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         /* 说明文字 */
         .caption {
             font-weight: 600;
+            font-size: 0.9rem; /* 字体稍微改小，适配紧凑布局 */
             color: #555;
             margin-top: 5px;
         }
@@ -55,8 +85,11 @@
 </head>
 <body>
 
-    <h1>Real-World Experiments</h1>
+    <h1>REFINE-MCTS: Universal Policy for Robot Manipulation</h1>
+    
     <div class="subtitle">Anonymous Authors</div>
+
+    <h2>1. Real-World Experiments</h2>
 
     <div class="video-grid">
 
@@ -64,70 +97,70 @@
             <video controls preload="metadata" playsinline>
                 <source src="./video_01.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 01: Task Name</div>
+            <div class="caption">Experiment 01</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_02.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 02: Task Name</div>
+            <div class="caption">Experiment 02</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_03.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 03: Task Name</div>
+            <div class="caption">Experiment 03</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_04.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 04: Task Name</div>
+            <div class="caption">Experiment 04</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_05.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 05: Task Name</div>
+            <div class="caption">Experiment 05</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_06.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 06: Task Name</div>
+            <div class="caption">Experiment 06</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_07.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 07: Task Name</div>
+            <div class="caption">Experiment 07</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_08.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 08: Task Name</div>
+            <div class="caption">Experiment 08</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_09.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 09: Task Name</div>
+            <div class="caption">Experiment 09</div>
         </div>
 
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_10.mp4" type="video/mp4">
             </video>
-            <div class="caption">Experiment 10: Task Name</div>
+            <div class="caption">Experiment 10</div>
         </div>
 
     </div>
