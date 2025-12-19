@@ -3,69 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Page</title>
+    <title>Project Page - REFINE-MCTS</title>
     <style>
-        /* --- 页面整体风格 --- */
+        /* =========================================
+           1. 全局设置
+        ========================================= */
         body {
             font-family: 'Segoe UI', sans-serif;
-            /* 【修改点1】宽度加宽，为了容纳一行4个视频 */
-            max-width: 1400px; 
-            margin: 0 auto;    /* 居中 */
+            max-width: 1400px; /* 页面足够宽，容纳一行4个 */
+            margin: 0 auto;
             padding: 40px 20px;
-            background-color: #f4f7f6;
+            background-color: #f8f9fa;
             color: #333;
         }
 
-        /* 【修改点2】标题样式调整 */
-        h1 { 
-            text-align: center; 
-            color: #2c3e50; 
-            margin-bottom: 10px; 
-            font-size: 2.5rem; /* 字体加大 */
-        }
+        h1 { text-align: center; color: #2c3e50; font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; font-size: 1.2rem; margin-bottom: 50px; font-weight: bold; }
         
-        .subtitle { 
-            text-align: center; 
-            color: #666; 
-            margin-bottom: 60px; /* 拉大和下面内容的距离 */
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        /* 新增：二级标题样式 */
+        /* 章节标题 */
         h2 {
-            border-bottom: 2px solid #ddd; /* 加个下划线 */
+            border-bottom: 2px solid #ddd;
             padding-bottom: 10px;
             color: #34495e;
-            margin-bottom: 20px;
+            margin-top: 60px; /* 章节之间拉开距离 */
+            margin-bottom: 30px;
         }
 
-        /* --- 视频网格布局 (核心修改) --- */
-        .video-grid {
+        /* =========================================
+           2. 仿真实验样式 (PPT风格 - 左右不对称)
+           适用于：尺寸不一致的 GIF
+        ========================================= */
+        .sim-task-container {
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .sim-layout-grid {
             display: grid;
-            /* 【修改点3】强制分为4列 (1fr = 1 fraction，即1份) */
+            grid-template-columns: 3fr 2fr; /* 左边占3份(大)，右边占2份(小) */
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* 图片自适应：无论你上传多大尺寸，都会自动缩放适应框框 */
+        .sim-layout-grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .view-label {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 8px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* 右侧文字列表 */
+        .action-list {
+            background: #f4f6f8;
+            padding: 15px 15px 15px 30px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        /* =========================================
+           3. 真机实验样式 (整齐划一 - 一行4个)
+           适用于：尺寸一致的 MP4
+        ========================================= */
+        .real-world-grid {
+            display: grid;
+            /* 强制一行 4 个 */
             grid-template-columns: repeat(4, 1fr); 
-            gap: 20px; /* 视频之间的间距稍微调小一点，不然太挤 */
+            gap: 20px; 
         }
 
-        /* 手机端适配：如果不加这个，手机上也会是4列，会小到看不见 */
-        @media (max-width: 768px) {
-            .video-grid {
-                grid-template-columns: 1fr; /* 手机上强制变回1列 */
-            }
-        }
-
-        /* 单个视频卡片 */
         .video-card {
             background: white;
-            padding: 10px; /* 内边距稍微减小 */
+            padding: 10px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             text-align: center;
         }
 
-        /* 视频本身 */
-        video {
+        .video-card video {
             width: 100%;       
             height: auto;
             border-radius: 5px;
@@ -74,25 +103,52 @@
             margin-bottom: 8px;
         }
 
-        /* 说明文字 */
         .caption {
             font-weight: 600;
-            font-size: 0.9rem; /* 字体稍微改小，适配紧凑布局 */
+            font-size: 0.9rem;
             color: #555;
-            margin-top: 5px;
+        }
+
+        /* 手机适配：手机上全部变单列，防止挤扁 */
+        @media (max-width: 768px) {
+            .real-world-grid, .sim-layout-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <h1>REFINE-MCTS: Universal Policy for Robot Manipulation</h1>
-    
     <div class="subtitle">Anonymous Authors</div>
 
-    <h2>1. Real-World Experiments</h2>
+    <h2>1. Simulation Experiments</h2>
+    
+    <div class="sim-task-container">
+        <h3 style="margin-top:0;">Task: Place salmon in fridge</h3>
+        
+        <div class="sim-layout-grid">
+            <div>
+                <img src="./sim_01_overall.gif" alt="Overall View"> 
+                <div class="view-label">Global Perspective</div>
+            </div>
 
-    <div class="video-grid">
+            <div>
+                <img src="./sim_01_agent.gif" alt="Agent View" style="margin-bottom: 15px;">
+                <div class="view-label">Agent Perspective</div>
+                
+                <ul class="action-list">
+                    <li>walk to fridge</li>
+                    <li>open fridge</li>
+                    <li>pick salmon</li>
+                    <li>place salmon</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <h2>2. Real-World Experiments</h2>
 
+    <div class="real-world-grid">
+        
         <div class="video-card">
             <video controls preload="metadata" playsinline>
                 <source src="./video_01.mp4" type="video/mp4">
