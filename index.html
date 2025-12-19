@@ -38,7 +38,7 @@
         }
 
         /* =========================================
-           2. 仿真实验样式 (核心修改部分)
+           2. 仿真实验样式 (PPT风格)
         ========================================= */
         .sim-task-container {
             background: #fff;
@@ -51,13 +51,11 @@
 
         .sim-layout-grid {
             display: grid;
-            /* 左侧占 55%，右侧占 45% */
-            grid-template-columns: 1.2fr 1fr; 
+            grid-template-columns: 1.2fr 1fr; /* 左大右小 */
             gap: 30px;
             align-items: start;
         }
 
-        /* 左侧大图 */
         .sim-layout-grid img {
             width: 100%;
             height: auto;
@@ -74,23 +72,16 @@
             margin-bottom: 5px;
         }
 
-        /* --- 右侧 Agent 视角的多图网格系统 --- */
-        .agent-view-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
+        /* 右侧 Agent 视角的网格系统 */
         .agent-grid {
             display: grid;
             gap: 10px;
         }
-
-        /* 1张图：占满 */
+        /* 1张图 */
         .agent-grid.cols-1 { grid-template-columns: 1fr; }
-        /* 2张图：左右各一半 */
+        /* 2张图 */
         .agent-grid.cols-2 { grid-template-columns: 1fr 1fr; }
-        /* 3或4张图：2x2 排列 */
+        /* 3或4张图 (四宫格) */
         .agent-grid.cols-4 { grid-template-columns: 1fr 1fr; }
 
         /* =========================================
@@ -139,7 +130,7 @@
     <h2>1. Simulation Experiments</h2>
     
     <div class="sim-task-container">
-        <h3 style="margin-top:0;">Task 1: Grab the cellphone and put it on the nightstand</h3>
+        <h3 style="margin-top:0;">Task 1: Place salmon in fridge</h3>
         <div class="sim-layout-grid">
             <div>
                 <div class="view-label">Global Perspective</div>
@@ -155,24 +146,23 @@
     </div>
 
     <div class="sim-task-container">
-        <h3 style="margin-top:0;">Task 2: Put the bananas on the kitchen table and turn on the TV</h3>
+        <h3 style="margin-top:0;">Task 2: Grab the cellphone and put it on the nightstand</h3>
         <div class="sim-layout-grid">
             <div>
                 <div class="view-label">Global Perspective</div>
                 <img src="./sim_task2_global.GIF" alt="Task 2 Global"> 
             </div>
             <div>
-                <div class="view-label">Agent Perspectives (2 Views)</div>
-                <div class="agent-grid cols-2">
+                <div class="view-label">Agent Perspective</div>
+                <div class="agent-grid cols-1">
                     <img src="./sim_task2_agent1.GIF" alt="Agent 1">
-                    <img src="./sim_task2_agent2.GIF" alt="Agent 2">
                 </div>
             </div>
         </div>
     </div>
 
     <div class="sim-task-container">
-        <h3 style="margin-top:0;">Task 3: Move the pillow to the sofa and turn off the table lamp</h3>
+        <h3 style="margin-top:0;">Task 3: Put the bananas on the kitchen table and turn on the TV</h3>
         <div class="sim-layout-grid">
             <div>
                 <div class="view-label">Global Perspective</div>
@@ -189,37 +179,54 @@
     </div>
 
     <div class="sim-task-container">
-        <h3 style="margin-top:0;">Task 4: Get ready for a guest’s arrival</h3>
+        <h3 style="margin-top:0;">Task 4: Move the pillow to the sofa and turn off the table lamp</h3>
         <div class="sim-layout-grid">
             <div>
                 <div class="view-label">Global Perspective</div>
                 <img src="./sim_task4_global.GIF" alt="Task 4 Global"> 
             </div>
             <div>
-                <div class="view-label">Agent Perspectives (4 Views)</div>
-                <div class="agent-grid cols-4">
+                <div class="view-label">Agent Perspectives (2 Views)</div>
+                <div class="agent-grid cols-2">
                     <img src="./sim_task4_agent1.GIF" alt="Agent 1">
                     <img src="./sim_task4_agent2.GIF" alt="Agent 2">
-                    <img src="./sim_task4_agent3.GIF" alt="Agent 3">
-                    <img src="./sim_task4_agent4.GIF" alt="Agent 4">
                 </div>
             </div>
         </div>
     </div>
 
     <div class="sim-task-container">
-        <h3 style="margin-top:0;">Task 5: Prepare breakfast for the morning</h3>
+        <h3 style="margin-top:0;">Task 5: Get ready for a guest’s arrival</h3>
         <div class="sim-layout-grid">
             <div>
                 <div class="view-label">Global Perspective</div>
                 <img src="./sim_task5_global.GIF" alt="Task 5 Global"> 
             </div>
             <div>
-                <div class="view-label">Agent Perspectives (3 Views)</div>
+                <div class="view-label">Agent Perspectives (4 Views)</div>
                 <div class="agent-grid cols-4">
                     <img src="./sim_task5_agent1.GIF" alt="Agent 1">
                     <img src="./sim_task5_agent2.GIF" alt="Agent 2">
                     <img src="./sim_task5_agent3.GIF" alt="Agent 3">
+                    <img src="./sim_task5_agent4.GIF" alt="Agent 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sim-task-container">
+        <h3 style="margin-top:0;">Task 6: Prepare breakfast for the morning</h3>
+        <div class="sim-layout-grid">
+            <div>
+                <div class="view-label">Global Perspective</div>
+                <img src="./sim_task6_global.GIF" alt="Task 6 Global"> 
+            </div>
+            <div>
+                <div class="view-label">Agent Perspectives (3 Views)</div>
+                <div class="agent-grid cols-4">
+                    <img src="./sim_task6_agent1.GIF" alt="Agent 1">
+                    <img src="./sim_task6_agent2.GIF" alt="Agent 2">
+                    <img src="./sim_task6_agent3.GIF" alt="Agent 3">
                 </div>
             </div>
         </div>
@@ -233,27 +240,4 @@
         <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_02.mp4" type="video/mp4"></video><div class="caption">02: Place the black pen in the pencil cup</div></div>
         <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_03.mp4" type="video/mp4"></video><div class="caption">03: Open the drawer, put in the eraser, and then close the drawer</div></div>
         <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_04.mp4" type="video/mp4"></video><div class="caption">04: Place the yellow block in the basket, and then move the basket to point A</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_05.mp4" type="video/mp4"></video><div class="caption">05: Place the pink block on top of the drawer</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_06.mp4" type="video/mp4"></video><div class="caption">06: Place the yellow block on top of the pink block</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_07.mp4" type="video/mp4"></video><div class="caption">07: Place the pink block on top of the yellow block</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_08.mp4" type="video/mp4"></video><div class="caption">08: Place the eraser on top of the pink block</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_09.mp4" type="video/mp4"></video><div class="caption">09: Place the eraser in the basket, move the basket to point A...</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_10.mp4" type="video/mp4"></video><div class="caption">10: Place the pink block in the basket, and then place the yellow block at point A</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_11.mp4" type="video/mp4"></video><div class="caption">11: Place the black pen on top of the drawer</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_12.mp4" type="video/mp4"></video><div class="caption">12: Place the pink square in the pen holder</div></div>
-    </div>
-
-    <h3 class="subsection-title">2.2 Abstract Tasks</h3>
-    <div class="real-world-grid">
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_13.mp4" type="video/mp4"></video><div class="caption">13: Organize and store the stationery</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_14.mp4" type="video/mp4"></video><div class="caption">14: Tidy up the desk</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_15.mp4" type="video/mp4"></video><div class="caption">15: Open the drawer, put in all the blocks</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_16.mp4" type="video/mp4"></video><div class="caption">16: Use all containers to store items...</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_17.mp4" type="video/mp4"></video><div class="caption">17: Prepare drawing tools...</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_18.mp4" type="video/mp4"></video><div class="caption">18: Store colored items together</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_19.mp4" type="video/mp4"></video><div class="caption">19: Store all items safely</div></div>
-        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_20.mp4" type="video/mp4"></video><div class="caption">20: Put all blocks and erasers in the drawer</div></div>
-    </div>
-
-</body>
-</html>
+        <div class="video-card"><video controls preload="metadata"
