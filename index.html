@@ -30,7 +30,7 @@
 
         h3.subsection-title {
             color: #2c3e50;
-            margin-top: 40px;
+            margin-top: 50px; /* 增加一点顶部间距，区分不同组 */
             margin-bottom: 20px;
             padding-left: 10px;
             border-left: 5px solid #3498db;
@@ -63,8 +63,8 @@
 
         .grid-item img {
             width: 100%;
-            height: auto; /* 保持比例 */
-            aspect-ratio: 4/3; /* 强制统一宽高比，防止对不齐，可选 */
+            height: auto; 
+            aspect-ratio: 4/3; /* 强制统一宽高比 */
             border-radius: 6px;
             border: 1px solid #eee;
             object-fit: cover;
@@ -75,7 +75,23 @@
             margin-bottom: 8px;
             color: #555;
             font-size: 0.85rem;
-            white-space: nowrap; /* 防止文字换行 */
+            white-space: nowrap; 
+        }
+
+        /* PPT概览图片容器 */
+        .overview-container {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        
+        .overview-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
         }
 
         /* =========================================
@@ -112,7 +128,7 @@
             line-height: 1.4;
         }
 
-        /* 手机端适配：变为2列 */
+        /* 手机端适配 */
         @media (max-width: 768px) {
             .real-world-grid { grid-template-columns: 1fr; }
             .task-grid-row { grid-template-columns: repeat(2, 1fr); }
@@ -126,6 +142,8 @@
 
     <h2>1. Simulation Experiments</h2>
     
+    <h3 class="subsection-title">1.1 Instruction Tasks</h3>
+
     <div class="sim-task-container">
         <h3 style="margin-top:0;">Task 1: Place salmon in fridge</h3>
         <div class="task-grid-row">
@@ -137,7 +155,7 @@
                 <div class="view-label">Agent 1</div>
                 <img src="./sim_task1_agent1.GIF" alt="Agent 1">
             </div>
-            </div>
+        </div>
     </div>
 
     <div class="sim-task-container">
@@ -153,6 +171,8 @@
             </div>
         </div>
     </div>
+
+    <h3 class="subsection-title">1.2 Composite Tasks</h3>
 
     <div class="sim-task-container">
         <h3 style="margin-top:0;">Task 3: Put the bananas on the kitchen table and turn on the TV</h3>
@@ -189,6 +209,8 @@
             </div>
         </div>
     </div>
+
+    <h3 class="subsection-title">1.3 Abstract Tasks</h3>
 
     <div class="sim-task-container">
         <h3 style="margin-top:0;">Task 5: Get ready for a guest’s arrival</h3>
@@ -234,6 +256,153 @@
             <div class="grid-item">
                 <div class="view-label">Agent 3</div>
                 <img src="./sim_task6_agent3.GIF" alt="Agent 3">
+            </div>
+        </div>
+    </div>
+
+<style>
+        /* 专门为 Overview 区域设计的样式 */
+        .overview-group {
+            margin-bottom: 40px; /* 每一大组之间的间距 */
+        }
+        
+        .overview-group-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        /* 装饰线，模仿论文插图风格 */
+        .overview-group-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #ddd;
+            margin: 8px auto 0;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 强制 5 列 */
+            gap: 10px; /* 图片之间的间距 */
+            align-items: start;
+        }
+
+        .overview-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .overview-item img {
+            width: 100%;
+            aspect-ratio: 4/3; /* 保持统一比例 */
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            margin-bottom: 8px;
+        }
+
+        .overview-caption {
+            font-size: 0.75rem; /* 小字号说明 */
+            line-height: 1.3;
+            color: #555;
+            text-align: center;
+            padding: 0 2px;
+        }
+
+        /* 手机端适配：变成 2 列，防止太挤 */
+        @media (max-width: 768px) {
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            /* 手机端最后一张单独占一行，或者你可以接受空缺 */
+            .overview-item:last-child {
+                grid-column: auto; 
+            }
+        }
+    </style>
+
+    <h3 class="subsection-title">1.4 Task Overview</h3>
+
+    <div class="overview-group">
+        <div class="overview-group-title">Examples of instruction tasks</div>
+        <div class="overview-grid">
+            <div class="overview-item">
+                <img src="./overview_01.GIF" alt="Task 1">
+                <div class="overview-caption">Place the salmon in the fridge</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_02.GIF" alt="Task 2">
+                <div class="overview-caption">Grab the cellphone and put it on the nightstand</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_03.GIF" alt="Task 3">
+                <div class="overview-caption">Put the book on the coffeetable</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_04.GIF" alt="Task 4">
+                <div class="overview-caption">Put the wine glass on the desk</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_05.GIF" alt="Task 5">
+                <div class="overview-caption">Put the plate inside cabinet</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overview-group">
+        <div class="overview-group-title">Examples of composite tasks</div>
+        <div class="overview-grid">
+            <div class="overview-item">
+                <img src="./overview_06.GIF" alt="Task 6">
+                <div class="overview-caption">Put the bananas on the kitchen table and turn on the TV</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_07.GIF" alt="Task 7">
+                <div class="overview-caption">Move the pillow to the sofa and turn off the table lamp</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_08.GIF" alt="Task 8">
+                <div class="overview-caption">One robot grabs remote while another turns on TV</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_09.GIF" alt="Task 9">
+                <div class="overview-caption">Place the towel on the sink and open cabinet</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_10.GIF" alt="Task 10">
+                <div class="overview-caption">Put cereal on counter and switch on coffee maker</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overview-group">
+        <div class="overview-group-title">Examples of abstract tasks</div>
+        <div class="overview-grid">
+            <div class="overview-item">
+                <img src="./overview_11.GIF" alt="Task 11">
+                <div class="overview-caption">Prepare breakfast for the morning</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_12.GIF" alt="Task 12">
+                <div class="overview-caption">Prepare a relaxing bath</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_13.GIF" alt="Task 13">
+                <div class="overview-caption">Set the table for dinner</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_14.GIF" alt="Task 14">
+                <div class="overview-caption">Make the bathroom guest-ready</div>
+            </div>
+            <div class="overview-item">
+                <img src="./overview_15.GIF" alt="Task 15">
+                <div class="overview-caption">Get ready for a movie night</div>
             </div>
         </div>
     </div>
