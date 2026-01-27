@@ -30,7 +30,7 @@
 
         h3.subsection-title {
             color: #2c3e50;
-            margin-top: 50px;
+            margin-top: 50px; /* 增加一点顶部间距，区分不同组 */
             margin-bottom: 20px;
             padding-left: 10px;
             border-left: 5px solid #3498db;
@@ -51,6 +51,7 @@
 
         .task-grid-row {
             display: grid;
+            /* 强制分为5列，确保所有任务的图片大小严格一致 */
             grid-template-columns: repeat(5, 1fr); 
             gap: 15px;
             align-items: start;
@@ -58,105 +59,15 @@
 
         .grid-item {
             text-align: center;
-            position: relative;
         }
 
-        /* GIF容器样式 */
-        .gif-container {
-            position: relative;
+        .grid-item img {
             width: 100%;
-            aspect-ratio: 4/3;
+            height: auto; 
+            aspect-ratio: 4/3; /* 强制统一宽高比 */
             border-radius: 6px;
             border: 1px solid #eee;
-            overflow: hidden;
-            cursor: pointer;
-            background: #2c3e50;
-        }
-
-        .gif-container img,
-        .gif-container canvas {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            display: block;
-        }
-
-        .gif-container canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .gif-container.loaded canvas {
-            display: none;
-        }
-
-        /* 加载状态 */
-        .gif-container.loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 30px;
-            height: 30px;
-            margin: -15px 0 0 -15px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* 播放按钮覆盖层 */
-        .gif-play-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.3);
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .gif-container.playing .gif-play-overlay {
-            opacity: 0;
-        }
-
-        .gif-container:hover .gif-play-overlay {
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        /* 播放按钮图标 */
-        .play-button {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-        }
-
-        .gif-container:hover .play-button {
-            transform: scale(1.1);
-        }
-
-        .play-button::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 12px 0 12px 20px;
-            border-color: transparent transparent transparent #333;
-            margin-left: 4px;
         }
 
         .view-label {
@@ -167,50 +78,20 @@
             white-space: nowrap; 
         }
 
-        /* 专门为 Overview 区域设计的样式 */
-        .overview-group {
+        /* PPT概览图片容器 */
+        .overview-container {
+            text-align: center;
             margin-bottom: 40px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
         
-        .overview-group-title {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #444;
-            margin-bottom: 15px;
-            position: relative;
-        }
-        
-        .overview-group-title::after {
-            content: "";
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: #ddd;
-            margin: 8px auto 0;
-        }
-
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            align-items: start;
-        }
-
-        .overview-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
-        .overview-caption {
-            font-size: 0.75rem;
-            line-height: 1.3;
-            color: #555;
-            text-align: center;
-            padding: 0 2px;
-            margin-top: 8px;
+        .overview-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
         }
 
         /* =========================================
@@ -251,7 +132,6 @@
         @media (max-width: 768px) {
             .real-world-grid { grid-template-columns: 1fr; }
             .task-grid-row { grid-template-columns: repeat(2, 1fr); }
-            .overview-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -269,23 +149,11 @@
         <div class="task-grid-row">
             <div class="grid-item">
                 <div class="view-label">Global</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task1_global.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 1 Global">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task1_global.GIF" alt="Task 1 Global"> 
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 1</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task1_agent1.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 1">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task1_agent1.GIF" alt="Agent 1">
             </div>
         </div>
     </div>
@@ -295,23 +163,11 @@
         <div class="task-grid-row">
             <div class="grid-item">
                 <div class="view-label">Global</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task2_global.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 2 Global">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task2_global.GIF" alt="Task 2 Global"> 
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 1</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task2_agent1.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 1">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task2_agent1.GIF" alt="Agent 1">
             </div>
         </div>
     </div>
@@ -323,33 +179,15 @@
         <div class="task-grid-row">
             <div class="grid-item">
                 <div class="view-label">Global</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task3_global.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 3 Global">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task3_global.GIF" alt="Task 3 Global"> 
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 1</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task3_agent1.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 1">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task3_agent1.GIF" alt="Agent 1">
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 2</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task3_agent2.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 2">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task3_agent2.GIF" alt="Agent 2">
             </div>
         </div>
     </div>
@@ -359,33 +197,15 @@
         <div class="task-grid-row">
             <div class="grid-item">
                 <div class="view-label">Global</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task4_global.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 4 Global">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task4_global.GIF" alt="Task 4 Global"> 
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 1</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task4_agent1.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 1">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task4_agent1.GIF" alt="Agent 1">
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 2</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task4_agent2.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 2">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task4_agent2.GIF" alt="Agent 2">
             </div>
         </div>
     </div>
@@ -393,57 +213,27 @@
     <h3 class="subsection-title">1.3 Abstract Tasks</h3>
 
     <div class="sim-task-container">
-        <h3 style="margin-top:0;">Task 5: Get ready for a guest's arrival</h3>
+        <h3 style="margin-top:0;">Task 5: Get ready for a guest’s arrival</h3>
         <div class="task-grid-row">
             <div class="grid-item">
                 <div class="view-label">Global</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task5_global.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 5 Global">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task5_global.GIF" alt="Task 5 Global"> 
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 1</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task5_agent1.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 1">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task5_agent1.GIF" alt="Agent 1">
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 2</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task5_agent2.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 2">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task5_agent2.GIF" alt="Agent 2">
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 3</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task5_agent3.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 3">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task5_agent3.GIF" alt="Agent 3">
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 4</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task5_agent4.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 4">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task5_agent4.GIF" alt="Agent 4">
             </div>
         </div>
     </div>
@@ -453,46 +243,89 @@
         <div class="task-grid-row">
             <div class="grid-item">
                 <div class="view-label">Global</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task6_global.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 6 Global">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task6_global.GIF" alt="Task 6 Global"> 
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 1</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task6_agent1.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 1">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task6_agent1.GIF" alt="Agent 1">
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 2</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task6_agent2.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 2">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task6_agent2.GIF" alt="Agent 2">
             </div>
             <div class="grid-item">
                 <div class="view-label">Agent 3</div>
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./sim_task6_agent3.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Agent 3">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./sim_task6_agent3.GIF" alt="Agent 3">
             </div>
         </div>
     </div>
+
+<style>
+        /* 专门为 Overview 区域设计的样式 */
+        .overview-group {
+            margin-bottom: 40px; /* 每一大组之间的间距 */
+        }
+        
+        .overview-group-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        /* 装饰线，模仿论文插图风格 */
+        .overview-group-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #ddd;
+            margin: 8px auto 0;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 强制 5 列 */
+            gap: 10px; /* 图片之间的间距 */
+            align-items: start;
+        }
+
+        .overview-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .overview-item img {
+            width: 100%;
+            aspect-ratio: 4/3; /* 保持统一比例 */
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            margin-bottom: 8px;
+        }
+
+        .overview-caption {
+            font-size: 0.75rem; /* 小字号说明 */
+            line-height: 1.3;
+            color: #555;
+            text-align: center;
+            padding: 0 2px;
+        }
+
+        /* 手机端适配：变成 2 列，防止太挤 */
+        @media (max-width: 768px) {
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            /* 手机端最后一张单独占一行，或者你可以接受空缺 */
+            .overview-item:last-child {
+                grid-column: auto; 
+            }
+        }
+    </style>
 
     <h3 class="subsection-title">1.4 Task Overview</h3>
 
@@ -500,53 +333,23 @@
         <div class="overview-group-title">Examples of instruction tasks</div>
         <div class="overview-grid">
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_01.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 1">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_01.GIF" alt="Task 1">
                 <div class="overview-caption">Place the salmon in the fridge</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_02.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 2">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_02.GIF" alt="Task 2">
                 <div class="overview-caption">Grab the cellphone and put it on the nightstand</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_03.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 3">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_03.GIF" alt="Task 3">
                 <div class="overview-caption">Put the book on the coffeetable</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_04.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 4">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_04.GIF" alt="Task 4">
                 <div class="overview-caption">Put the wine glass on the desk</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_05.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 5">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_05.GIF" alt="Task 5">
                 <div class="overview-caption">Put the plate inside cabinet</div>
             </div>
         </div>
@@ -556,53 +359,23 @@
         <div class="overview-group-title">Examples of composite tasks</div>
         <div class="overview-grid">
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_06.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 6">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_06.GIF" alt="Task 6">
                 <div class="overview-caption">Put the bananas on the kitchen table and turn on the TV</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_07.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 7">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_07.GIF" alt="Task 7">
                 <div class="overview-caption">Move the pillow to the sofa and turn off the table lamp</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_08.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 8">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_08.GIF" alt="Task 8">
                 <div class="overview-caption">One robot grabs remote while another turns on TV</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_09.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 9">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_09.GIF" alt="Task 9">
                 <div class="overview-caption">Place the towel on the sink and open cabinet</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_10.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 10">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_10.GIF" alt="Task 10">
                 <div class="overview-caption">Put cereal on counter and switch on coffee maker</div>
             </div>
         </div>
@@ -612,53 +385,23 @@
         <div class="overview-group-title">Examples of abstract tasks</div>
         <div class="overview-grid">
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_11.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 11">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_11.GIF" alt="Task 11">
                 <div class="overview-caption">Prepare breakfast for the morning</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_12.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 12">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_12.GIF" alt="Task 12">
                 <div class="overview-caption">Prepare a relaxing bath</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_13.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 13">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_13.GIF" alt="Task 13">
                 <div class="overview-caption">Set the table for dinner</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_14.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 14">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_14.GIF" alt="Task 14">
                 <div class="overview-caption">Make the bathroom guest-ready</div>
             </div>
             <div class="overview-item">
-                <div class="gif-container" onclick="toggleGif(this)" data-gif="./overview_15.GIF">
-                    <canvas></canvas>
-                    <img style="display:none;" alt="Task 15">
-                    <div class="gif-play-overlay">
-                        <div class="play-button"></div>
-                    </div>
-                </div>
+                <img src="./overview_15.GIF" alt="Task 15">
                 <div class="overview-caption">Get ready for a movie night</div>
             </div>
         </div>
@@ -668,114 +411,31 @@
 
     <h3 class="subsection-title">2.1 Instructional Tasks</h3>
     <div class="real-world-grid">
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_01.mp4" type="video/mp4"></video><div class="caption">01: Place the pink block at point A</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_02.mp4" type="video/mp4"></video><div class="caption">02: Place the black pen in the pencil cup</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_03.mp4" type="video/mp4"></video><div class="caption">03: Open the drawer, put in the eraser, and then close the drawer</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_04.mp4" type="video/mp4"></video><div class="caption">04: Place the yellow block in the basket, and then move the basket to point A</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_05.mp4" type="video/mp4"></video><div class="caption">05: Place the pink block on top of the drawer</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_06.mp4" type="video/mp4"></video><div class="caption">06: Place the yellow block on top of the pink block</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_07.mp4" type="video/mp4"></video><div class="caption">07: Place the pink block on top of the yellow block</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_08.mp4" type="video/mp4"></video><div class="caption">08: Place the eraser on top of the pink block</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_09.mp4" type="video/mp4"></video><div class="caption">09: Place the eraser in the basket, move the basket to point A</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_10.mp4" type="video/mp4"></video><div class="caption">10: Place the pink block in the basket, and then place the yellow block at point A</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_11.mp4" type="video/mp4"></video><div class="caption">11: Place the black pen on top of the drawer</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_12.mp4" type="video/mp4"></video><div class="caption">12: Place the pink square in the pen holder</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_01.mp4" type="video/mp4"></video><div class="caption">01: Place the pink block at point A</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_02.mp4" type="video/mp4"></video><div class="caption">02: Place the black pen in the pencil cup</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_03.mp4" type="video/mp4"></video><div class="caption">03: Open the drawer, put in the eraser, and then close the drawer</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_04.mp4" type="video/mp4"></video><div class="caption">04: Place the yellow block in the basket, and then move the basket to point A</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_05.mp4" type="video/mp4"></video><div class="caption">05: Place the pink block on top of the drawer</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_06.mp4" type="video/mp4"></video><div class="caption">06: Place the yellow block on top of the pink block</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_07.mp4" type="video/mp4"></video><div class="caption">07: Place the pink block on top of the yellow block</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_08.mp4" type="video/mp4"></video><div class="caption">08: Place the eraser on top of the pink block</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_09.mp4" type="video/mp4"></video><div class="caption">09: Place the eraser in the basket, move the basket to point A</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_10.mp4" type="video/mp4"></video><div class="caption">10: Place the pink block in the basket, and then place the yellow block at point A</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_11.mp4" type="video/mp4"></video><div class="caption">11: Place the black pen on top of the drawer</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_12.mp4" type="video/mp4"></video><div class="caption">12: Place the pink square in the pen holder</div></div>
     </div>
 
     <h3 class="subsection-title">2.2 Abstract Tasks</h3>
     <div class="real-world-grid">
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_13.mp4" type="video/mp4"></video><div class="caption">13: Organize and store the stationery</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_14.mp4" type="video/mp4"></video><div class="caption">14: Tidy up the desk</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_15.mp4" type="video/mp4"></video><div class="caption">15: Open the drawer, put in all the blocks</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_16.mp4" type="video/mp4"></video><div class="caption">16: Use all containers to store items...</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_17.mp4" type="video/mp4"></video><div class="caption">17: Prepare drawing tools...</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_18.mp4" type="video/mp4"></video><div class="caption">18: Store colored items together</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_19.mp4" type="video/mp4"></video><div class="caption">19: Store all items safely</div></div>
-        <div class="video-card"><video controls preload="none" playsinline><source src="./video_20.mp4" type="video/mp4"></video><div class="caption">20: Put all blocks and erasers in the drawer</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_13.mp4" type="video/mp4"></video><div class="caption">13: Organize and store the stationery</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_14.mp4" type="video/mp4"></video><div class="caption">14: Tidy up the desk</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_15.mp4" type="video/mp4"></video><div class="caption">15: Open the drawer, put in all the blocks</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_16.mp4" type="video/mp4"></video><div class="caption">16: Use all containers to store items...</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_17.mp4" type="video/mp4"></video><div class="caption">17: Prepare drawing tools...</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_18.mp4" type="video/mp4"></video><div class="caption">18: Store colored items together</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_19.mp4" type="video/mp4"></video><div class="caption">19: Store all items safely</div></div>
+        <div class="video-card"><video controls preload="metadata" playsinline><source src="./video_20.mp4" type="video/mp4"></video><div class="caption">20: Put all blocks and erasers in the drawer</div></div>
     </div>
-
-    <script>
-        // GIF 第一帧提取和播放控制
-        
-        // 页面加载时，为所有 GIF 提取第一帧
-        document.addEventListener('DOMContentLoaded', function() {
-            const gifContainers = document.querySelectorAll('.gif-container');
-            
-            gifContainers.forEach(container => {
-                const gifSrc = container.getAttribute('data-gif');
-                const canvas = container.querySelector('canvas');
-                const img = container.querySelector('img');
-                
-                if (!canvas || !gifSrc) return;
-                
-                // 创建临时图片来加载 GIF
-                const tempImg = new Image();
-                tempImg.crossOrigin = 'anonymous';
-                
-                tempImg.onload = function() {
-                    // 设置 canvas 尺寸
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = tempImg.width;
-                    canvas.height = tempImg.height;
-                    
-                    // 绘制第一帧到 canvas
-                    ctx.drawImage(tempImg, 0, 0);
-                    
-                    // 标记已加载封面
-                    container.setAttribute('data-thumbnail-loaded', 'true');
-                };
-                
-                tempImg.onerror = function() {
-                    // 如果加载失败，显示灰色背景
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = 400;
-                    canvas.height = 300;
-                    ctx.fillStyle = '#2c3e50';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                };
-                
-                // 开始加载 GIF（浏览器会自动只渲染第一帧到 canvas）
-                tempImg.src = gifSrc;
-            });
-        });
-        
-        // 点击播放/暂停 GIF
-        function toggleGif(container) {
-            const img = container.querySelector('img');
-            const canvas = container.querySelector('canvas');
-            const gifSrc = container.getAttribute('data-gif');
-            const isPlaying = container.classList.contains('playing');
-            
-            if (isPlaying) {
-                // 暂停：隐藏 GIF，显示 canvas 封面
-                img.style.display = 'none';
-                canvas.style.display = 'block';
-                container.classList.remove('playing');
-                container.classList.remove('loaded');
-            } else {
-                // 播放：加载并显示 GIF
-                container.classList.add('loading');
-                
-                // 预加载完整 GIF
-                const fullGif = new Image();
-                fullGif.onload = function() {
-                    img.src = gifSrc + '?t=' + new Date().getTime();
-                    img.style.display = 'block';
-                    canvas.style.display = 'none';
-                    container.classList.remove('loading');
-                    container.classList.add('playing');
-                    container.classList.add('loaded');
-                };
-                
-                fullGif.onerror = function() {
-                    container.classList.remove('loading');
-                    alert('Failed to load GIF: ' + gifSrc);
-                };
-                
-                fullGif.src = gifSrc + '?t=' + new Date().getTime();
-            }
-        }
-    </script>
 
 </body>
 </html>
